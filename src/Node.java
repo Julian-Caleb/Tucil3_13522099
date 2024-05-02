@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+// Class Node, menampung kata, cost, dan path yang dilaluinya.
+// Dibuat class demi mengenkapsulasi dan supaya lebih mudah mengakses.
 public class Node {
     
     private String word;
@@ -12,6 +14,7 @@ public class Node {
         this.path = path;
     }
 
+    // Getter
     public String getWord() {
         return word;
     }
