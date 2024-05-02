@@ -11,7 +11,7 @@ public class GUI extends JFrame {
 
     public GUI() {
         setTitle("Word Ladder");
-        setSize(500, 300);
+        setSize(1000, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 

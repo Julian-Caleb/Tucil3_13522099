@@ -9,9 +9,11 @@ import java.util.ArrayList;
 public class EnglishDictionary {
 
     public static String dictionary = "dictionary/dictionary2.txt";
+    public static String currDictionary = "dictionary/currDictionary.txt";
+    // public static ArrayList<String> currLocalDictionary = new ArrayList<>();
 
     public static boolean checkWord(String word) {
-        try (BufferedReader br = new BufferedReader(new FileReader(dictionary))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(EnglishDictionary.dictionary))) {
             String line;
             while ((line = br.readLine()) != null) {
                 if (line.equalsIgnoreCase(word)) {
@@ -25,14 +27,8 @@ public class EnglishDictionary {
     }
 
     public static void createDictionaryLength(int length) {
-        String outputFile = "dictionary/dictionary_length_" + length + ".txt";
-        File file = new File(outputFile);
-        if (file.exists()) {
-            System.out.println("Dictionary file with words length " + length + " already exists.");
-            return;
-        }
-        try (BufferedReader br = new BufferedReader(new FileReader(dictionary));
-             BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(EnglishDictionary.dictionary));
+             BufferedWriter bw = new BufferedWriter(new FileWriter(EnglishDictionary.currDictionary))) {
             String line;
             while ((line = br.readLine()) != null) {
                 if (line.trim().length() == length) {
@@ -48,16 +44,29 @@ public class EnglishDictionary {
 
     public static ArrayList<String> findWordsWithOneLetterDifference(String inputWord) {
         ArrayList<String> wordsWithOneDifference = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(dictionary))) {
+        ArrayList<String> restOfWords = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(EnglishDictionary.currDictionary))) {
             String line;
             while ((line = br.readLine()) != null) {
                 if (findAmountLettersDifference(inputWord, line.trim()) == 1) {
                     wordsWithOneDifference.add(line.trim());
+                } else {
+                    restOfWords.add(line.trim());
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(EnglishDictionary.currDictionary))) {
+            for (String word : restOfWords) {
+                bw.write(word);
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return wordsWithOneDifference;
     }
 

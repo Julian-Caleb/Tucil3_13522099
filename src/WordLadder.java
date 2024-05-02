@@ -48,18 +48,23 @@ public class WordLadder {
 
         // Buat struktur data untuk UCS
         ArrayList<String> tempWords = new ArrayList<>(); // Untuk menampung kata-kata yang sudah dibangkitkan sementara
-        HashSet<String> wordsVisited = new HashSet<>(); // Untuk ngecek yang sudah di visit
+        // HashSet<String> wordsVisited = new HashSet<>(); // Untuk ngecek yang sudah di visit
         PriorityQueue<Node> queue = new PriorityQueue<>(Comparator.comparingInt(Node::getCost)); // Current queue
         
-        Queue<String> debugQueue = new LinkedList<>(); // Current queue
+        // Queue<String> debugQueue = new LinkedList<>(); // Current queue
 
         Node currNode; // untuk node sementara
         ArrayList<String> currPath; // untuk path sementara
         
         Boolean found = false;
+
+        // Kalau startWord == endWord
+        if (this.startWord == this.endWord) {
+            found = true;
+        }
         
         // debug
-        String temp;
+        // String temp;
 
         // Buat node startNode
         currPath = new ArrayList<>();
@@ -70,7 +75,7 @@ public class WordLadder {
         queue.add(currNode);
 
         // debug
-        debugQueue.add(startWord);
+        // debugQueue.add(startWord);
 
         // Proses queue dengan UCS
         while (!queue.isEmpty() && !found) {
@@ -78,14 +83,14 @@ public class WordLadder {
             currNode = queue.poll();
 
             // debug
-            temp = debugQueue.poll();
+            // temp = debugQueue.poll();
 
             // debug
             System.out.println("Current word: " + currNode.getWord());
             System.out.println();
 
             // Masukkan ke wordsVisited untuk nanti dicek
-            wordsVisited.add(currNode.getWord());
+            // wordsVisited.add(currNode.getWord());
 
             // Bangkitkan child node
             tempWords.clear();
@@ -118,20 +123,21 @@ public class WordLadder {
                         newCost = gn(currNode.getCost()) + hn(word);
                     }
 
-                    if (!wordsVisited.contains(word)) {
+                    // if (!wordsVisited.contains(word)) {
                         Node tempNode = new Node(word, newCost, currPath);
-                        wordsVisited.add(word);
+                        // wordsVisited.add(word);
                         queue.add(tempNode);
 
                         // debug
-                        debugQueue.add(word);
-                    }
+                        // debugQueue.add(word);
+                    // }
                 }
             }
 
             // debug
-            System.out.println("Current Queue: " + debugQueue);
-            System.out.println();
+            // System.out.println("Current Queue: " + debugQueue);
+            // System.out.println();
+            // System.out.println(wordsVisited);
 
         }
 
