@@ -23,6 +23,8 @@ public class GUI extends JFrame {
         
         pathTextArea = new JTextArea(10, 30);
         pathTextArea.setEditable(false);
+        pathTextArea.setLineWrap(true);
+        pathTextArea.setWrapStyleWord(true);
 
         algorithmComboBox = new JComboBox<>();
         algorithmComboBox.addItem("UCS");

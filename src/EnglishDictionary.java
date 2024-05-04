@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class EnglishDictionary {
 
     // Kamus disimpan secara lokal, ditampung pathnya relatif kepada .class.
-    public static String dictionary = "dictionary/dictionary2.txt";
+    public static String dictionary = "dictionary/dictionaryWordsAlpha.txt";
     // Array untuk menampung dan memproses kata-kata secara sementara
     public static ArrayList<String> currLocalDictionary = new ArrayList<>();
 

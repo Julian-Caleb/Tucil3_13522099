@@ -58,16 +58,18 @@ public class WordLadder {
         return EnglishDictionary.findAmountLettersDifference(word, this.endWord);
     }
 
-    // Fungsi f(n) = g(n) + h(n), fungsi penghitung cost untuk A* (tidak diimplementasikan sebagai method).
-    // nb. gak ada alasan khusus sih.
+    // Fungsi f(n) = g(n) + h(n), fungsi penghitung cost untuk A*.
+    public int fn(int cost, String word) {
+        return gn(cost) + hn(word);
+    }
 
     // Ini dia fungsi utamanya, fungsi untuk mencari path antar kedua kata.
-    // Menggunakan versi array wordVisited sudah dihapus.
+    // Menggunakan versi array wordVisited yang selalu berubah.
     private void findPath() {
         // Mulai waktu
         long startTime = System.currentTimeMillis();
 
-        // Buat struktur data untuk UCS
+        // Buat struktur data
         ArrayList<String> tempWords = new ArrayList<>(); // Untuk menampung kata-kata yang sudah dibangkitkan sementara.
         PriorityQueue<Node> queue = new PriorityQueue<>(Comparator.comparingInt(Node::getCost)); // Untuk queue pemrosesan kata.
 
@@ -84,9 +86,6 @@ public class WordLadder {
         } else {
             // Kalau tidak
 
-            // debug
-            // String temp;
-
             // Buat node startNode
             currPath = new ArrayList<>();
             currPath.add(this.startWord);
@@ -95,16 +94,10 @@ public class WordLadder {
             // Masukkan ke queue untuk diproses
             queue.add(currNode);
 
-            // debug
-            // debugQueue.add(startWord);
-
-            // Proses queue dengan UCS
+            // Proses queue
             while (!queue.isEmpty() && !found) {
                 // Ambil isinya (paling pertama)
                 currNode = queue.poll();
-
-                // debug
-                // temp = debugQueue.poll();
 
                 // debug
                 System.out.println("Current word: " + currNode.getWord());
@@ -138,7 +131,7 @@ public class WordLadder {
                         } else if (this.algorithm == "GBFS") {
                             newCost = hn(word);
                         } else {
-                            newCost = gn(currNode.getCost()) + hn(word);
+                            newCost = fn(currNode.getCost(), word);
                         }
 
                         // Membuat node, lalu dimasukkan ke prioQueue
@@ -146,11 +139,6 @@ public class WordLadder {
                         queue.add(tempNode);
                     }
                 }
-
-                // debug
-                // System.out.println("Current Queue: " + debugQueue);
-                // System.out.println();
-                // System.out.println(wordsVisited);
 
             }
 
